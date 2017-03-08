@@ -1,7 +1,12 @@
 package cs.dal.weatherapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -10,13 +15,20 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView locationView;
     TextView updateView;
-    WeatherForecast weatherForecast;
+    ListView listView;
 
+    WeatherForecast weatherForecast;
+    ArrayList<String> shortForecast;
+
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         locationView = (TextView)findViewById(R.id.locationView);
         updateView = (TextView)findViewById(R.id.updateView);
+        listView = (ListView)findViewById(R.id.listView);
 
         XmlPullParserFactory pullParserFactory;
 
@@ -37,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
             parser.setInput(in_s, null);
 
             weatherForecast = parseXML(parser);
+            shortForecast = weatherForecast.getShortForecast();
 
-            locationView.setText(weatherForecast.getLocation());
-            updateView.setText(weatherForecast.getUpdateTime());
 
         } catch (XmlPullParserException e) {
 
@@ -48,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        locationView.setText(weatherForecast.getLocation());
+        updateView.setText(weatherForecast.getUpdateTime());
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, shortForecast);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private WeatherForecast parseXML(XmlPullParser parser) throws XmlPullParserException,IOException

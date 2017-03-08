@@ -34,6 +34,17 @@ public class WeatherForecast {
         return forecast;
     }
 
+    public ArrayList<String> getShortForecast() {
+        ArrayList<String> shortForecast = new ArrayList<String>();
+
+        for (int i = 0; i < forecast.size(); i++) {
+            if (forecast.get(i).getCategory().equals("Weather Forecasts")) {
+                shortForecast.add(forecast.get(i).getTitle());
+            }
+        }
+        return shortForecast;
+    }
+
     public void setLocation(String location) {
         this.location = location;
     }
