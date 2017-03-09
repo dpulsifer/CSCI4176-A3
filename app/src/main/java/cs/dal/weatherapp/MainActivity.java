@@ -24,10 +24,6 @@ public class MainActivity extends AppCompatActivity {
     TextView locationView;
     TextView updateView;
     ListView listView;
-
-    WeatherForecast weatherForecast;
-    ArrayList<String> shortForecast;
-
     ArrayAdapter<String> adapter;
 
     @Override
@@ -49,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in_s, null);
 
-            weatherForecast = parseXML(parser);
-            shortForecast = weatherForecast.getShortForecast();
-
+            GetWeather.setWeatherForecast(GetWeather.parseXML(parser));
 
         } catch (XmlPullParserException e) {
 
@@ -61,67 +55,30 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        locationView.setText(weatherForecast.getLocation());
-        updateView.setText(weatherForecast.getUpdateTime());
+        if (GetWeather.getWeatherForecast() != null) {
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, shortForecast);
-        listView.setAdapter(adapter);
+            WeatherForecast currentForecast = GetWeather.getWeatherForecast();
+            locationView.setText(currentForecast.getLocation());
+            updateView.setText(currentForecast.getUpdateTime());
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentForecast.getShortForecast());
+            listView.setAdapter(adapter);
 
-    private WeatherForecast parseXML(XmlPullParser parser) throws XmlPullParserException,IOException
-    {
-        int eventType = parser.getEventType();
-        WeatherForecast newForecast = new WeatherForecast();
-
-        boolean isEntry = false;
-        String entryTitle = "";
-        String entryCategory = "";
-        String entrySummary = "";
-
-        while (eventType != XmlPullParser.END_DOCUMENT){
-            String name;
-            switch (eventType){
-                case XmlPullParser.START_DOCUMENT:
-                    break;
-                case XmlPullParser.START_TAG:
-                    name = parser.getName();
-                    if (name.equals("title") && newForecast.getLocation() == null){
-                        newForecast.setLocation(parser.nextText());
-                    }
-                    else if (name.equals("updated") && newForecast.getUpdateTime() == null) {
-                        newForecast.setUpdateTime(parser.nextText());
-                    }
-                    else if (name.equals("entry")) {
-                        isEntry = true;
-                    }
-                    else if ( isEntry == true ) {
-
-                        if (name.equals("title")) { entryTitle = parser.nextText(); }
-                        if (name.equals("category")) {
-                            entryCategory = parser.getAttributeValue(null, "term");
-                        }
-                        if (name.equals("summary")) {
-                            entrySummary = parser.nextText();
-                            newForecast.addForecastEntry(new ForecastEntry(entryTitle.trim(), entryCategory.trim(), entrySummary.trim()));
-                        }
-                    }
-                    break;
-                case XmlPullParser.END_TAG:
-                    break;
-            }
-            eventType = parser.next();
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("DETAIL_SELECTION", position);
+                    startActivity(intent);
+                }
+            });
         }
 
-        return newForecast;
+
+
 
     }
+
+
 }

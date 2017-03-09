@@ -10,11 +10,6 @@ public class ForecastEntry {
     String category;
     String summary;
 
-    public ForecastEntry() {
-
-    }
-
-
     public ForecastEntry(String title, String category, String summary){
         this.title = title;
         this.category = category;
