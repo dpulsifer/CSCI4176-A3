@@ -35,25 +35,11 @@ public class MainActivity extends AppCompatActivity {
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
 
-        XmlPullParserFactory pullParserFactory;
+        GetWeather.setLocationXML("http://weather.gc.ca/rss/city/ns-19_e.xml");
 
-        try {
-            pullParserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = pullParserFactory.newPullParser();
+        new WeatherLoaderTask(MainActivity.this).execute();
 
-            InputStream in_s = getApplicationContext().getAssets().open("source.xml");
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(in_s, null);
-
-            GetWeather.setWeatherForecast(GetWeather.parseXML(parser));
-
-        } catch (XmlPullParserException e) {
-
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        try{ Thread.sleep(500); }catch(InterruptedException e){ }
 
         if (GetWeather.getWeatherForecast() != null) {
 
