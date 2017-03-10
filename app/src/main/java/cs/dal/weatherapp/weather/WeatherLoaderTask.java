@@ -11,10 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import cs.dal.weatherapp.weather.ForecastEntry;
-import cs.dal.weatherapp.weather.GetWeather;
-import cs.dal.weatherapp.weather.WeatherForecast;
-
 /**
  * Created by duncanpulsifer on 2017-03-09.
  */
@@ -35,6 +31,7 @@ public class WeatherLoaderTask extends AsyncTask<Void, Void, Void> {
 
         XmlPullParserFactory pullParserFactory;
 
+        if (GetWeather.getLocationXML() == null) { return null; }
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();

@@ -1,19 +1,24 @@
 package cs.dal.weatherapp;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cs.dal.weatherapp.locationdb.DatabaseHandler;
 import cs.dal.weatherapp.locationdb.Location;
+import cs.dal.weatherapp.weather.GetWeather;
 
 public class LocationActivity extends AppCompatActivity {
 
@@ -30,17 +35,21 @@ public class LocationActivity extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.locationList);
         listView.setTextFilterEnabled(true);
 
-        DatabaseHandler db = new DatabaseHandler(this);
+        final DatabaseHandler db = new DatabaseHandler(this);
 
         List<Location> locationList = db.getAllLocations();
-        List<String> locationNameList = new ArrayList<>();
+
+        final List<String> locationNameList = new ArrayList<>();
+        final List<String> sortedLocationNameList = new ArrayList<>();
         for (int i = 0; i < locationList.size(); i++) {
-            System.out.println(locationList.get(i).get_location());
             locationNameList.add(locationList.get(i).get_location());
+            sortedLocationNameList.add(locationList.get(i).get_location());
         }
 
+        Collections.sort(sortedLocationNameList, String.CASE_INSENSITIVE_ORDER);
+
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, locationNameList );
+                this, android.R.layout.simple_list_item_1, sortedLocationNameList );
 
         listView.setAdapter(arrayAdapter);
 
@@ -60,6 +69,19 @@ public class LocationActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable arg0) {
                 // TODO Auto-generated method stub
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                int itemPosition = locationNameList.indexOf(arrayAdapter.getItem(position)) + 1;
+                Location foundLocation = db.getLocation(itemPosition);
+                GetWeather.setLocationXML(foundLocation.get_url());
+
+                Intent intent = new Intent(LocationActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -3,14 +3,15 @@ package cs.dal.weatherapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import cs.dal.weatherapp.locationdb.DatabaseHandler;
 import cs.dal.weatherapp.locationdb.LocationLoaderTask;
 import cs.dal.weatherapp.weather.GetWeather;
 import cs.dal.weatherapp.weather.WeatherForecast;
@@ -24,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<String> adapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +35,19 @@ public class MainActivity extends AppCompatActivity {
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
 
-        GetWeather.setLocationXML("http://weather.gc.ca/rss/city/ns-19_e.xml");
+        if (GetWeather.getLocationXML() == null ) {
 
+            Toast toast = Toast.makeText(getApplicationContext(), "Please select a location.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+
+            Intent locationIntent = new Intent(MainActivity.this, LocationActivity.class);
+            startActivity(locationIntent);
+        }
         new LocationLoaderTask(MainActivity.this).execute();
         new WeatherLoaderTask(MainActivity.this).execute();
 
-        while (GetWeather.getWeatherForecast() == null) {
-            try{ Thread.sleep(250); }catch(InterruptedException e){ }
-        }
+        try{ Thread.sleep(250); }catch(InterruptedException e){ }
 
         if (GetWeather.getWeatherForecast() != null) {
 
