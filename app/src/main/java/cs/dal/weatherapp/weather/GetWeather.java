@@ -1,9 +1,6 @@
-package cs.dal.weatherapp;
+package cs.dal.weatherapp.weather;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
+import cs.dal.weatherapp.weather.WeatherForecast;
 
 /**
  * Created by duncanpulsifer on 2017-03-09.
@@ -27,7 +24,5 @@ public class GetWeather {
     }
 
     public static WeatherForecast getWeatherForecast() { return weatherForecast; }
-
-
 
 }

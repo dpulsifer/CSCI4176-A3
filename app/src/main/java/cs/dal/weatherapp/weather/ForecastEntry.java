@@ -1,4 +1,4 @@
-package cs.dal.weatherapp;
+package cs.dal.weatherapp.weather;
 
 /**
  * Created by duncanpulsifer on 2017-03-08.

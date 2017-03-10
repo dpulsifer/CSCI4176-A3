@@ -1,6 +1,8 @@
-package cs.dal.weatherapp;
+package cs.dal.weatherapp.weather;
 
 import java.util.ArrayList;
+
+import cs.dal.weatherapp.weather.ForecastEntry;
 
 /**
  * Created by duncanpulsifer on 2017-03-08.

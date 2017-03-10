@@ -1,4 +1,4 @@
-package cs.dal.weatherapp;
+package cs.dal.weatherapp.weather;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,6 +10,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import cs.dal.weatherapp.weather.ForecastEntry;
+import cs.dal.weatherapp.weather.GetWeather;
+import cs.dal.weatherapp.weather.WeatherForecast;
 
 /**
  * Created by duncanpulsifer on 2017-03-09.
@@ -34,8 +38,6 @@ public class WeatherLoaderTask extends AsyncTask<Void, Void, Void> {
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();
-
-            System.out.println(GetWeather.getLocationXML());
 
             InputStream in_s = new URL(GetWeather.getLocationXML()).openStream();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -100,10 +102,8 @@ public class WeatherLoaderTask extends AsyncTask<Void, Void, Void> {
             }
             eventType = parser.next();
         }
-        System.out.println(newForecast.getLocation());
 
         return newForecast;
-
     }
 
 }
