@@ -24,7 +24,7 @@ public class LocationLoaderTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         DatabaseHandler db = new DatabaseHandler(mContext);
-        if (db.isTableExists() == true) { return null; }
+        if (db.doesTableExist() == true) { return null; }
 
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(mContext.getAssets().open("feeds.csv"));

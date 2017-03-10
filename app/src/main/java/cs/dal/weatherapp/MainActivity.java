@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
 
+        new LocationLoaderTask(MainActivity.this).execute();
+        new WeatherLoaderTask(MainActivity.this).execute();
+
+        try{ Thread.sleep(250); }catch(InterruptedException e){ }
+
         if (GetWeather.getLocationXML() == null ) {
 
             Toast toast = Toast.makeText(getApplicationContext(), "Please select a location.", Toast.LENGTH_LONG);
@@ -44,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
             Intent locationIntent = new Intent(MainActivity.this, LocationActivity.class);
             startActivity(locationIntent);
         }
-        new LocationLoaderTask(MainActivity.this).execute();
-        new WeatherLoaderTask(MainActivity.this).execute();
-
-        try{ Thread.sleep(250); }catch(InterruptedException e){ }
 
         if (GetWeather.getWeatherForecast() != null) {
 

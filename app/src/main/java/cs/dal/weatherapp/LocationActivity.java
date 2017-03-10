@@ -41,6 +41,7 @@ public class LocationActivity extends AppCompatActivity {
 
         final List<String> locationNameList = new ArrayList<>();
         final List<String> sortedLocationNameList = new ArrayList<>();
+
         for (int i = 0; i < locationList.size(); i++) {
             locationNameList.add(locationList.get(i).get_location());
             sortedLocationNameList.add(locationList.get(i).get_location());
@@ -77,6 +78,7 @@ public class LocationActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 int itemPosition = locationNameList.indexOf(arrayAdapter.getItem(position)) + 1;
+                db.setCurrent(itemPosition);
                 Location foundLocation = db.getLocation(itemPosition);
                 GetWeather.setLocationXML(foundLocation.get_url());
 

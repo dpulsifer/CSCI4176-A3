@@ -17,11 +17,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "locationManager";
-    private static final String TABLE_LOCATIONS = "locations";
 
+    private static final String TABLE_LOCATIONS = "locations";
     private static final String KEY_ID = "id";
     private static final String KEY_LOCATION = "location";
     private static final String KEY_URL = "url";
+
+    private static final String TABLE_CURRENT = "current";
+    private static final String KEY_CITYID = "id";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,12 +35,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         String CREATE_LOCATIONS_TABLE = "CREATE TABLE " + TABLE_LOCATIONS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_LOCATION + " TEXT,"
                 + KEY_URL + " TEXT" + ")";
+        String CREATE_CURRENT_TABLE = "CREATE TABLE " + TABLE_CURRENT + "(" + KEY_CITYID + ")";
         db.execSQL(CREATE_LOCATIONS_TABLE);
+        db.execSQL(CREATE_CURRENT_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT);
         onCreate(db);
     }
 
@@ -45,26 +51,20 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public void dropTables() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT);
     }
 
-    //reads true even if table does not exist
-    public boolean isTableExists() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String tableName = TABLE_LOCATIONS;
+    public boolean doesTableExist() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String count = "SELECT count(*) FROM " + TABLE_LOCATIONS;
 
-        if (tableName == null || db == null || !db.isOpen())
-        {
+        Cursor cursor = db.rawQuery(count, null);
+        cursor.moveToFirst();
+        int icount = cursor.getInt(0);
+        if(icount>0)
+            return true;
+        else
             return false;
-        }
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
-        if (!cursor.moveToFirst())
-        {
-            cursor.close();
-            return false;
-        }
-        int count = cursor.getInt(0);
-        cursor.close();
-        return count > 0;
     }
 
     public void addLocation(Location location) {
@@ -111,5 +111,45 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
 
         return locationList;
+    }
+
+    public void setCurrent(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CURRENT, null,null);
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_CITYID, Integer.toString(id));
+
+        db.insert(TABLE_CURRENT, null, values);
+        db.close();
+    }
+
+    public int getCurrent() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int locationID = -1;
+        Cursor cursor = db.query(TABLE_CURRENT, new String[] { "*" },
+                null, null, null, null, null);
+        if(cursor != null)
+        {
+            if (cursor.moveToFirst()) {
+                locationID = Integer.parseInt(cursor.getString(0)); // DeviceID
+            }
+        }
+        cursor.close();
+        db.close();
+        return locationID;
+    }
+
+    public boolean isCurrentSet() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String count = "SELECT count(*) FROM " + TABLE_CURRENT;
+
+        Cursor cursor = db.rawQuery(count, null);
+        cursor.moveToFirst();
+        int icount = cursor.getInt(0);
+        if(icount>0)
+            return true;
+        else
+            return false;
     }
 }
