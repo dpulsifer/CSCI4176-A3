@@ -31,12 +31,10 @@ public class LocationLoaderTask extends AsyncTask<Void, Void, Void> {
             Scanner inputStream = new Scanner(inputStreamReader);
 
             while (inputStream.hasNext()) {
-                String data = inputStream.nextLine(); // Gets a whole line
-                String[] line = data.split(","); // Splits the line up into a string array
+                String data = inputStream.nextLine();
+                String[] line = data.split(",");
 
-                if (line.length > 1) {
-                    db.addLocation(new Location(line[1], line[0]));
-                }
+                db.addLocation(new Location(line[1], line[0]));
             }
 
         } catch (IOException e) {

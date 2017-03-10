@@ -40,11 +40,6 @@ public class WeatherForecast {
         ArrayList<String> shortForecast = new ArrayList<String>();
 
         for (int i = 0; i < forecast.size(); i++) {
-            /*
-            if (forecast.get(i).getCategory().equals("Weather Forecasts")) {
-                shortForecast.add(forecast.get(i).getTitle());
-            }
-            */
             shortForecast.add(forecast.get(i).getTitle());
         }
         return shortForecast;

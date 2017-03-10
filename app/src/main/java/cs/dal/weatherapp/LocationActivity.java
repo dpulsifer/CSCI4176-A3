@@ -38,15 +38,14 @@ public class LocationActivity extends AppCompatActivity {
         final DatabaseHandler db = new DatabaseHandler(this);
 
         List<Location> locationList = db.getAllLocations();
-
         final List<String> locationNameList = new ArrayList<>();
         final List<String> sortedLocationNameList = new ArrayList<>();
 
+        // create separate sorted list and leave original intact to all easier database access
         for (int i = 0; i < locationList.size(); i++) {
             locationNameList.add(locationList.get(i).get_location());
             sortedLocationNameList.add(locationList.get(i).get_location());
         }
-
         Collections.sort(sortedLocationNameList, String.CASE_INSENSITIVE_ORDER);
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -76,7 +75,6 @@ public class LocationActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 int itemPosition = locationNameList.indexOf(arrayAdapter.getItem(position)) + 1;
                 db.setCurrent(itemPosition);
                 Location foundLocation = db.getLocation(itemPosition);

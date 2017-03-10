@@ -37,8 +37,7 @@ public class WeatherLoaderTask extends AsyncTask<Void, Void, Void> {
 
         if ((db.isCurrentSet()) && (db.getCurrent() != -1)) {
             GetWeather.setLocationXML(db.getLocation(db.getCurrent()).get_url());
-        }
-        if (GetWeather.getLocationXML() == null) { return null; }
+        } else { return null; }
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();

@@ -30,15 +30,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        locationButton = (Button)findViewById(R.id.locationButton);
-        locationView = (TextView)findViewById(R.id.locationView);
-        updateView = (TextView)findViewById(R.id.updateView);
-        listView = (ListView)findViewById(R.id.listView);
-
         new LocationLoaderTask(MainActivity.this).execute();
         new WeatherLoaderTask(MainActivity.this).execute();
 
         try{ Thread.sleep(250); }catch(InterruptedException e){ }
+
+        locationButton = (Button)findViewById(R.id.locationButton);
+        locationView = (TextView)findViewById(R.id.locationView);
+        updateView = (TextView)findViewById(R.id.updateView);
+        listView = (ListView)findViewById(R.id.listView);
 
         if (GetWeather.getLocationXML() == null ) {
 
