@@ -6,40 +6,44 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
+import cs.dal.weatherapp.locationdb.DatabaseHandler;
+import cs.dal.weatherapp.locationdb.LocationLoaderTask;
+import cs.dal.weatherapp.weather.GetWeather;
+import cs.dal.weatherapp.weather.WeatherForecast;
+import cs.dal.weatherapp.weather.WeatherLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button locationButton;
     TextView locationView;
     TextView updateView;
     ListView listView;
     ArrayAdapter<String> adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        locationButton = (Button)findViewById(R.id.locationButton);
         locationView = (TextView)findViewById(R.id.locationView);
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
 
         GetWeather.setLocationXML("http://weather.gc.ca/rss/city/ns-19_e.xml");
 
+        new LocationLoaderTask(MainActivity.this).execute();
         new WeatherLoaderTask(MainActivity.this).execute();
 
-        try{ Thread.sleep(500); }catch(InterruptedException e){ }
+        while (GetWeather.getWeatherForecast() == null) {
+            try{ Thread.sleep(250); }catch(InterruptedException e){ }
+        }
 
         if (GetWeather.getWeatherForecast() != null) {
 
@@ -61,10 +65,14 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
-
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
-
 
 }

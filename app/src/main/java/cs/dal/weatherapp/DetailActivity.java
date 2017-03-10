@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import cs.dal.weatherapp.weather.ForecastEntry;
+import cs.dal.weatherapp.weather.GetWeather;
+import cs.dal.weatherapp.weather.WeatherForecast;
+
 public class DetailActivity extends AppCompatActivity {
 
     TextView detailLocation;
