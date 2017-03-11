@@ -1,6 +1,7 @@
 package cs.dal.weatherapp;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -25,6 +27,7 @@ import cs.dal.weatherapp.weather.WeatherLoaderTask;
 
 public class LocationActivity extends AppCompatActivity {
 
+    Button backButton;
     EditText searchLocation;
     ListView listView;
 
@@ -33,6 +36,10 @@ public class LocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+
+        backButton = (Button)findViewById(R.id.backButton);
+        backButton.setTypeface(font);
         searchLocation = (EditText)findViewById(R.id.searchLocation);
         searchLocation.setHint("Search");
         listView = (ListView)findViewById(R.id.locationList);
@@ -84,6 +91,14 @@ public class LocationActivity extends AppCompatActivity {
                 GetWeather.setLocationXML(foundLocation.get_url());
                 GetWeather.setLocationName(foundLocation.get_location());
 
+                Intent intent = new Intent(LocationActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(LocationActivity.this, MainActivity.class);
                 startActivity(intent);
             }

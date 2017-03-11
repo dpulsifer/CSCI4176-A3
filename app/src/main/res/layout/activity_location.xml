@@ -10,11 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cs.dal.weatherapp.LocationActivity">
 
+    <Button
+        android:text="@string/icon_back"
+        android:textSize="24dp"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        android:layout_alignParentLeft="true" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:ems="10"
+        android:ems="12"
+        android:layout_alignParentRight="true"
         android:id="@+id/searchLocation" />
 
     <ListView
@@ -22,4 +32,5 @@
         android:layout_height="match_parent"
         android:layout_below="@id/searchLocation"
         android:id="@+id/locationList" />
+
 </RelativeLayout>
