@@ -11,7 +11,7 @@ import cs.dal.weatherapp.weather.WeatherForecast;
 public class DetailActivity extends AppCompatActivity {
 
     TextView detailLocation;
-    TextView detailCategory;
+    TextView detailTitle;
     TextView detailInfo;
 
 
@@ -21,14 +21,14 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         detailLocation = (TextView)findViewById(R.id.detailLocation);
-        detailCategory = (TextView)findViewById(R.id.detailCategory);
+        detailTitle = (TextView)findViewById(R.id.detailTitle);
         detailInfo = (TextView)findViewById(R.id.detailInfo);
 
         WeatherForecast currentForecast = GetWeather.getWeatherForecast();
         ForecastEntry currentEntry = currentForecast.getForecast().get(getIntent().getExtras().getInt("DETAIL_SELECTION"));
 
         detailLocation.setText(currentForecast.getLocation());
-        detailCategory.setText(currentEntry.getCategory());
+        detailTitle.setText(currentEntry.getTitle().split("\\:", 2)[0]);
         detailInfo.setText(currentEntry.getSummary());
 
     }
