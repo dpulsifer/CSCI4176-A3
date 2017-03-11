@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         try{ Thread.sleep(250); }catch(InterruptedException e){ }
 
-        locationButton = (Button)findViewById(R.id.pinicon);
+        locationButton = (Button)findViewById(R.id.locationButton);
         locationButton.setTypeface(font);
         locationView = (TextView)findViewById(R.id.locationView);
         updateView = (TextView)findViewById(R.id.updateView);

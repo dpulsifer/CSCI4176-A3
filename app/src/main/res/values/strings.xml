@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="icon_map_pin">&#xf041;</string>
 </resources>
