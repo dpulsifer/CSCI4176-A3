@@ -82,6 +82,7 @@ public class LocationActivity extends AppCompatActivity {
                 db.setCurrent(itemPosition);
                 Location foundLocation = db.getLocation(itemPosition);
                 GetWeather.setLocationXML(foundLocation.get_url());
+                GetWeather.setLocationName(foundLocation.get_location());
 
                 Intent intent = new Intent(LocationActivity.this, MainActivity.class);
                 startActivity(intent);

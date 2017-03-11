@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         if (GetWeather.getWeatherForecast() != null) {
 
             WeatherForecast currentForecast = GetWeather.getWeatherForecast();
-            locationView.setText(currentForecast.getLocation());
+            locationView.setText(GetWeather.getLocationName());
             updateView.setText(currentForecast.getUpdateTime());
 
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentForecast.getShortForecast());
