@@ -12,7 +12,6 @@ public class DetailActivity extends AppCompatActivity {
 
     TextView detailLocation;
     TextView detailCategory;
-    TextView detailTitle;
     TextView detailInfo;
 
 
@@ -23,7 +22,6 @@ public class DetailActivity extends AppCompatActivity {
 
         detailLocation = (TextView)findViewById(R.id.detailLocation);
         detailCategory = (TextView)findViewById(R.id.detailCategory);
-        detailTitle = (TextView)findViewById(R.id.detailTitle);
         detailInfo = (TextView)findViewById(R.id.detailInfo);
 
         WeatherForecast currentForecast = GetWeather.getWeatherForecast();
@@ -31,7 +29,6 @@ public class DetailActivity extends AppCompatActivity {
 
         detailLocation.setText(currentForecast.getLocation());
         detailCategory.setText(currentEntry.getCategory());
-        detailTitle.setText(currentEntry.getTitle());
         detailInfo.setText(currentEntry.getSummary());
 
     }

@@ -11,15 +11,6 @@
     tools:context="cs.dal.weatherapp.DetailActivity">
 
     <TextView
-        android:text="location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:id="@+id/detailLocation"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:text="category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,20 +20,21 @@
         android:id="@+id/detailCategory" />
 
     <TextView
+        android:text="location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/detailLocation"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:text="information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detailInfo"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="159dp" />
-
-    <TextView
-        android:text="summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="86dp"
-        android:id="@+id/detailTitle"
         android:layout_below="@+id/detailCategory"
-        android:layout_alignStart="@+id/detailLocation" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp" />
+
 </RelativeLayout>
