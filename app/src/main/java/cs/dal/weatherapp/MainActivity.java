@@ -1,6 +1,7 @@
 package cs.dal.weatherapp;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -30,12 +31,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+
         new LocationLoaderTask(MainActivity.this).execute();
         new WeatherLoaderTask(MainActivity.this).execute();
 
         try{ Thread.sleep(250); }catch(InterruptedException e){ }
 
-        locationButton = (Button)findViewById(R.id.locationButton);
+        locationButton = (Button)findViewById(R.id.pinicon);
+        locationButton.setTypeface(font);
         locationView = (TextView)findViewById(R.id.locationView);
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
