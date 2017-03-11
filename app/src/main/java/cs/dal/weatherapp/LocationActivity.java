@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +19,9 @@ import java.util.List;
 
 import cs.dal.weatherapp.locationdb.DatabaseHandler;
 import cs.dal.weatherapp.locationdb.Location;
+import cs.dal.weatherapp.locationdb.LocationLoaderTask;
 import cs.dal.weatherapp.weather.GetWeather;
+import cs.dal.weatherapp.weather.WeatherLoaderTask;
 
 public class LocationActivity extends AppCompatActivity {
 

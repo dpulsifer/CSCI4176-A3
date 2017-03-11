@@ -41,13 +41,9 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listView);
 
         if (GetWeather.getLocationXML() == null ) {
-
             Toast toast = Toast.makeText(getApplicationContext(), "Please select a location.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
-
-            Intent locationIntent = new Intent(MainActivity.this, LocationActivity.class);
-            startActivity(locationIntent);
         }
 
         if (GetWeather.getWeatherForecast() != null) {
