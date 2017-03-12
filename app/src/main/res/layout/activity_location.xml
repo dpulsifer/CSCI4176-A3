@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorBlack"
+        android:layout_marginBottom="5dp"
         android:layout_below="@id/backButton"
         android:id="@+id/currentLocation"
         android:background="@drawable/rounded_corner"/>

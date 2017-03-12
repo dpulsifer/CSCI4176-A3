@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detailed"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="normal|bold"
         android:textAllCaps="true"
         android:textColor="@color/colorBlack"

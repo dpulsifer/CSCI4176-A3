@@ -20,8 +20,9 @@ import cs.dal.weatherapp.weather.WeatherLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView locationForecast;
     Button locationButton;
-    TextView locationView;
+    //TextView locationView;
     TextView updateView;
     ListView listView;
     ArrayAdapter<String> adapter;
@@ -38,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
         try{ Thread.sleep(250); }catch(InterruptedException e){ }
 
+        locationForecast = (TextView)findViewById(R.id.locationForecast);
         locationButton = (Button)findViewById(R.id.locationButton);
         locationButton.setTypeface(font);
-        locationView = (TextView)findViewById(R.id.locationView);
+        //locationView = (TextView)findViewById(R.id.locationView);
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
 
@@ -54,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
             WeatherForecast currentForecast = GetWeather.getWeatherForecast();
 
-            locationView.setText(GetWeather.getLocationName());
-            updateView.setText(currentForecast.getUpdateTime().replace("T", " ").replace("Z", ""));
+            locationForecast.setText(GetWeather.getLocationName());
+            //locationView.setText(GetWeather.getLocationName());
+            updateView.setText("Update Time: " + currentForecast.getUpdateTime().replace("T", " ").replace("Z", ""));
 
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentForecast.getShortForecast());
             listView.setAdapter(adapter);
