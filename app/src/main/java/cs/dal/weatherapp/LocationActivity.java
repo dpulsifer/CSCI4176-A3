@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,7 @@ public class LocationActivity extends AppCompatActivity {
 
     Button backButton;
     EditText searchLocation;
+    TextView currentLocation;
     ListView listView;
 
     @Override
@@ -42,6 +44,10 @@ public class LocationActivity extends AppCompatActivity {
         backButton.setTypeface(font);
         searchLocation = (EditText)findViewById(R.id.searchLocation);
         searchLocation.setHint("Search");
+        currentLocation = (TextView)findViewById(R.id.currentLocation);
+        if (GetWeather.getLocationName() != null) {
+            currentLocation.setText("Current Location: " + GetWeather.getLocationName());
+        }
         listView = (ListView)findViewById(R.id.locationList);
         listView.setTextFilterEnabled(true);
 
