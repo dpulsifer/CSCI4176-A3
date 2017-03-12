@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/sun"
     tools:context="cs.dal.weatherapp.LocationActivity">
 
     <Button
@@ -21,16 +22,19 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
         android:ems="12"
         android:layout_alignParentRight="true"
+        android:background="@drawable/rounded_corner"
         android:id="@+id/searchLocation" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchLocation"
+        android:layout_below="@id/backButton"
+        android:background="@drawable/rounded_corner"
         android:id="@+id/locationList" />
 
 </RelativeLayout>

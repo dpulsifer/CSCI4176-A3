@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (GetWeather.getWeatherForecast() != null) {
 
             WeatherForecast currentForecast = GetWeather.getWeatherForecast();
+
             locationView.setText(GetWeather.getLocationName());
             updateView.setText(currentForecast.getUpdateTime().replace("T", " ").replace("Z", ""));
 

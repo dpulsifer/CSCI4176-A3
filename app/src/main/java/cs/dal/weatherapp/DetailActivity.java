@@ -14,8 +14,6 @@ import cs.dal.weatherapp.weather.WeatherForecast;
 
 public class DetailActivity extends AppCompatActivity {
 
-    TextView detailLocation;
-    TextView detailTitle;
     TextView detailInfo;
     Button backButton;
 
@@ -27,16 +25,16 @@ public class DetailActivity extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
 
-        detailLocation = (TextView)findViewById(R.id.detailLocation);
-        detailTitle = (TextView)findViewById(R.id.detailTitle);
         detailInfo = (TextView)findViewById(R.id.detailInfo);
 
         WeatherForecast currentForecast = GetWeather.getWeatherForecast();
         ForecastEntry currentEntry = currentForecast.getForecast().get(getIntent().getExtras().getInt("DETAIL_SELECTION"));
 
-        detailLocation.setText(currentForecast.getLocation());
-        detailTitle.setText(currentEntry.getTitle().split("\\:", 2)[0]);
-        detailInfo.setText(currentEntry.getSummary());
+        String details = currentForecast.getLocation() + "\n\n" +
+                currentEntry.getTitle().split("\\:", 2)[0] + "\n\n" +
+                currentEntry.getSummary();
+
+        detailInfo.setText(details);
 
         backButton = (Button)findViewById(R.id.detailBackButton);
         backButton.setTypeface(font);

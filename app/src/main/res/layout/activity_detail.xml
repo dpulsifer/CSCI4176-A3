@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/sun"
     tools:context="cs.dal.weatherapp.DetailActivity">
 
     <TextView
@@ -18,35 +19,20 @@
         android:textSize="24sp"
         android:textStyle="normal|bold"
         android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/detailLocation"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/detailed"/>
+        android:background="@drawable/rounded_corner"/>
 
     <TextView
-        android:text="title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/detailTitle"
-        android:layout_below="@+id/detailLocation"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detailInfo"
+        android:textColor="@color/colorBlack"
         android:layout_marginTop="15dp"
-        android:layout_below="@+id/detailTitle"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/detailed"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_corner"/>
 
     <Button
         android:text="@string/icon_back"
