@@ -11,12 +11,32 @@
     tools:context="cs.dal.weatherapp.DetailActivity">
 
     <TextView
+        android:text="Detailed Forecast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailed"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:textAllCaps="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:text="location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:id="@+id/detailLocation"
-        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/detailed"/>
+
+    <TextView
+        android:text="title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/detailTitle"
+        android:layout_below="@+id/detailLocation"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -24,17 +44,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detailInfo"
-        android:layout_below="@+id/detailCategory"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/detailTitle"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="title"
+    <Button
+        android:text="@string/icon_back"
+        android:textSize="24dp"
+        android:layout_marginTop="15dp"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:id="@+id/detailTitle"
-        android:layout_below="@+id/detailLocation"
+        android:id="@+id/detailBackButton"
+        android:layout_below="@id/detailInfo"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
