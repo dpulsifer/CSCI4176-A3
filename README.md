@@ -1,4 +1,4 @@
-###Task
+##Task
 Implement an Android weather app. The app should meet the following minimum requirements:
 * The client should be a native application.
 * The interface should comprise at least three views: the Main Activity, the Location
@@ -21,13 +21,26 @@ the user should be able to select a location from a list of locations, which are
 in the feeds.csv file. However, using the GPS to select the location would be a nice
 feature as well. The user should also be able to navigate back to the Main Activity.
 
-Naturally, you may choose to create additional functionality in your weather app. Marks
-will be awarded partly on how polished the application is and its feature set. There are
-many extensions that you may wish to consider:
-* Using graphics and visual elements.
-* Using the GPS to set the current location
-* Using built in sensors to report the user’s immediate conditions
-* Setting user’s language preference
-* Accessing radar imagery
-* Reporting weather in locales outside of Canada
-* Etc. The list is endless.
+##Results
+###Features
+* On first use, the application loads the database with 839 possible Environ-
+ment Canada weather forecast locations. It then prompts a user to select a 
+location, which is then stored in the database.
+* After selecting a location from the list, the title and next update time of 
+that location is displayed on the main activity along with a list view of the 
+title information parsed from the XML file.
+* Selecting an item from the list view will bring the user to the details 
+activity, which will display information from the summary element of that
+particular entry in the XML file.
+* The user is freely able to navigate between activities using selections or
+the provided back buttons.
+
+### Polish
+* A toast appears on first use of the application to prompt the user to select
+a location.
+* The location activity features a responsive search bar. When a user begins 
+to type in the search bar, the list view of locations is filtered based on 
+what the user has typed.
+* A background of a blue sky, clouds and sun was added to the application
+activities.
+* I added rounded corners to all view elements of the application.
