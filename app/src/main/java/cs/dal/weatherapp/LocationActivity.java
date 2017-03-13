@@ -2,7 +2,6 @@ package cs.dal.weatherapp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,9 +20,7 @@ import java.util.List;
 
 import cs.dal.weatherapp.locationdb.DatabaseHandler;
 import cs.dal.weatherapp.locationdb.Location;
-import cs.dal.weatherapp.locationdb.LocationLoaderTask;
 import cs.dal.weatherapp.weather.GetWeather;
-import cs.dal.weatherapp.weather.WeatherLoaderTask;
 
 public class LocationActivity extends AppCompatActivity {
 

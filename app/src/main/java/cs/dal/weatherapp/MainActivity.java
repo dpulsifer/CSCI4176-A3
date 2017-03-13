@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cs.dal.weatherapp.locationdb.DatabaseLoader;
-import cs.dal.weatherapp.locationdb.LocationLoaderTask;
 import cs.dal.weatherapp.weather.GetWeather;
 import cs.dal.weatherapp.weather.WeatherForecast;
 import cs.dal.weatherapp.weather.WeatherLoaderTask;
