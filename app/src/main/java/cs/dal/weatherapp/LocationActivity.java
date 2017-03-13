@@ -55,9 +55,7 @@ public class LocationActivity extends AppCompatActivity {
         final DatabaseHandler db = new DatabaseHandler(this);
 
         List<Location> locationList = db.getAllLocations();
-
         final List<String> locationNameList = new ArrayList<>();
-
         final List<String> sortedLocationNameList = new ArrayList<>();
 
         /*

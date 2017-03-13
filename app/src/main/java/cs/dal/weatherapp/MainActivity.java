@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseLoader.databaseLoader(MainActivity.this);
         new WeatherLoaderTask(MainActivity.this).execute();
 
-        try{ Thread.sleep(250); }catch(InterruptedException e){ }
-
         locationForecast = (TextView)findViewById(R.id.locationForecast);
 
         Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
@@ -55,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         } else {
 
-            WeatherForecast currentForecast = GetWeather.getWeatherForecast();
+            try{ Thread.sleep(500); }catch(InterruptedException e){ }
 
             locationForecast.setText(GetWeather.getLocationName());
+            WeatherForecast currentForecast = GetWeather.getWeatherForecast();
             String updateViewText = "Update Time: " + currentForecast.getUpdateTime().replace("T", " ").replace("Z", "");
             updateView.setText(updateViewText);
 
