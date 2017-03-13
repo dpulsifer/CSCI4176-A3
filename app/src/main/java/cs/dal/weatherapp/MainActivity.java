@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cs.dal.weatherapp.locationdb.DatabaseLoader;
 import cs.dal.weatherapp.locationdb.LocationLoaderTask;
 import cs.dal.weatherapp.weather.GetWeather;
 import cs.dal.weatherapp.weather.WeatherForecast;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView locationForecast;
     Button locationButton;
-    //TextView locationView;
     TextView updateView;
     ListView listView;
     ArrayAdapter<String> adapter;
@@ -32,37 +32,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
-
-        new LocationLoaderTask(MainActivity.this).execute();
+        DatabaseLoader.databaseLoader(MainActivity.this);
         new WeatherLoaderTask(MainActivity.this).execute();
 
         try{ Thread.sleep(250); }catch(InterruptedException e){ }
 
         locationForecast = (TextView)findViewById(R.id.locationForecast);
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
         locationButton = (Button)findViewById(R.id.locationButton);
         locationButton.setTypeface(font);
-        //locationView = (TextView)findViewById(R.id.locationView);
+
         updateView = (TextView)findViewById(R.id.updateView);
         listView = (ListView)findViewById(R.id.listView);
 
+        /*
+        *   If location not set, show toast to request location. Else, display current location,
+        *   update time, and summary forecast.
+        */
         if (GetWeather.getLocationXML() == null ) {
             Toast toast = Toast.makeText(getApplicationContext(), "Please select a location.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
-        }
-
-        if (GetWeather.getWeatherForecast() != null) {
+        } else {
 
             WeatherForecast currentForecast = GetWeather.getWeatherForecast();
 
             locationForecast.setText(GetWeather.getLocationName());
-            //locationView.setText(GetWeather.getLocationName());
-            updateView.setText("Update Time: " + currentForecast.getUpdateTime().replace("T", " ").replace("Z", ""));
+            String updateViewText = "Update Time: " + currentForecast.getUpdateTime().replace("T", " ").replace("Z", "");
+            updateView.setText(updateViewText);
 
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currentForecast.getShortForecast());
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, GetWeather.getWeatherForecast().getShortForecast());
             listView.setAdapter(adapter);
 
+            /*
+            *   Handle click of item in summary forecast list by passing index of list selection to
+            *   Detail Activity.
+            */
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -74,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        /*
+        *   Handle click of location button on Main Activity.
+        */
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
