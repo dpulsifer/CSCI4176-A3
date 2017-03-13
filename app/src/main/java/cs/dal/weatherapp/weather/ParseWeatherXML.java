@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * Created by duncanpulsifer on 2017-03-10.
+ * Parses an Environment Canada forecast XML file.
  */
 
 public class ParseWeatherXML {

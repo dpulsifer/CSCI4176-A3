@@ -6,6 +6,7 @@ import cs.dal.weatherapp.weather.ForecastEntry;
 
 /**
  * Created by duncanpulsifer on 2017-03-08.
+ * An object to store information specific to an Environment Canada XML file.
  */
 
 public class WeatherForecast {

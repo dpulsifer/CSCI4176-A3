@@ -39,25 +39,34 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
 
         Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
-
         backButton = (Button)findViewById(R.id.backButton);
         backButton.setTypeface(font);
+
         searchLocation = (EditText)findViewById(R.id.searchLocation);
         searchLocation.setHint("Search");
+
         currentLocation = (TextView)findViewById(R.id.currentLocation);
         if (GetWeather.getLocationName() != null) {
             currentLocation.setText("Current Location: " + GetWeather.getLocationName());
         }
+
         listView = (ListView)findViewById(R.id.locationList);
         listView.setTextFilterEnabled(true);
 
+        /*
+        *   Get all locations from database to display in list
+        */
         final DatabaseHandler db = new DatabaseHandler(this);
 
         List<Location> locationList = db.getAllLocations();
+
         final List<String> locationNameList = new ArrayList<>();
+
         final List<String> sortedLocationNameList = new ArrayList<>();
 
-        // create separate sorted list and leave original intact to all easier database access
+        /*
+        *   Create separate sorted list and leave original intact to all easier database access.
+        */
         for (int i = 0; i < locationList.size(); i++) {
             locationNameList.add(locationList.get(i).get_location());
             sortedLocationNameList.add(locationList.get(i).get_location());
@@ -66,9 +75,11 @@ public class LocationActivity extends AppCompatActivity {
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, sortedLocationNameList );
-
         listView.setAdapter(arrayAdapter);
 
+        /*
+        *   Dynamic filtering on location list.
+        */
         searchLocation.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -88,12 +99,17 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        *   Get location name and URL from list selection, save to database and store in
+        *   GetWeather class, and return to Main Activity.
+        */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemPosition = locationNameList.indexOf(arrayAdapter.getItem(position)) + 1;
                 db.setCurrent(itemPosition);
                 Location foundLocation = db.getLocation(itemPosition);
+
                 GetWeather.setLocationXML(foundLocation.get_url());
                 GetWeather.setLocationName(foundLocation.get_location());
 
@@ -102,6 +118,9 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        *   Return to Main Activity via back button.
+        */
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

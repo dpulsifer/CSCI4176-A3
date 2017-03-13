@@ -23,8 +23,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
-
+        /*
+        *   Get and load detailed forecast from entry selected on Main Activity.
+        */
         detailInfo = (TextView)findViewById(R.id.detailInfo);
 
         WeatherForecast currentForecast = GetWeather.getWeatherForecast();
@@ -36,6 +37,10 @@ public class DetailActivity extends AppCompatActivity {
 
         detailInfo.setText(details);
 
+        /*
+        *   Font and functionality for back button to return to Main Activity.
+        */
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
         backButton = (Button)findViewById(R.id.detailBackButton);
         backButton.setTypeface(font);
 

@@ -21,6 +21,8 @@ public class LocationLoaderTask extends AsyncTask<Void, Void, Void> {
 
     }
 
+    //check if locations database table has been created. if yes, returns.
+    //if not, loads locations and urls from source file
     @Override
     protected Void doInBackground(Void... params) {
         DatabaseHandler db = new DatabaseHandler(mContext);

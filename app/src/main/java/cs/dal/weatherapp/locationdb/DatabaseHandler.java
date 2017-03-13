@@ -47,13 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    //for testing purposes
-    public void dropTables() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATIONS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT);
-    }
-
+    //check if Locations table exists
     public boolean doesTableExist() {
         SQLiteDatabase db = this.getWritableDatabase();
         String count = "SELECT count(*) FROM " + TABLE_LOCATIONS;
@@ -67,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             return false;
     }
 
+    //add location and url to database
     public void addLocation(Location location) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -78,6 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    //get individual location and url based on id
     public Location getLocation(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -92,6 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return location;
     }
 
+    //get all locations and urls in a list
     public List<Location> getAllLocations() {
         List<Location> locationList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_LOCATIONS;
@@ -113,6 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return locationList;
     }
 
+    //set current location selection
     public void setCurrent(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CURRENT, null,null);
@@ -124,6 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    //get current location selection
     public int getCurrent() {
         SQLiteDatabase db = this.getWritableDatabase();
         int locationID = -1;
@@ -140,6 +139,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return locationID;
     }
 
+    //check if current location has been set
     public boolean isCurrentSet() {
         SQLiteDatabase db = this.getWritableDatabase();
         String count = "SELECT count(*) FROM " + TABLE_CURRENT;

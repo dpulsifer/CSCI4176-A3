@@ -29,6 +29,8 @@ public class WeatherLoaderTask extends AsyncTask<Void, Void, Void> {
 
     }
 
+    //Checks if current location saved to database. If saved, loads selection to GetWeather class
+    //from current XML file. If not, returns null and does not attempt to parse XML file.
     @Override
     protected Void doInBackground(Void... params) {
 

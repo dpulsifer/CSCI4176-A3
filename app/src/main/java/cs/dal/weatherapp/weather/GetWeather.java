@@ -4,6 +4,7 @@ import cs.dal.weatherapp.weather.WeatherForecast;
 
 /**
  * Created by duncanpulsifer on 2017-03-09.
+ * A class used to store current location selection name, URL, and WeatherForecast object.
  */
 
 public class GetWeather {

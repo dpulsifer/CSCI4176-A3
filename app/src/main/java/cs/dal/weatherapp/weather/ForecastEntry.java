@@ -2,6 +2,7 @@ package cs.dal.weatherapp.weather;
 
 /**
  * Created by duncanpulsifer on 2017-03-08.
+ * An object to store information specific to a forecast entry.
  */
 
 public class ForecastEntry {
